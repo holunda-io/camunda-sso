@@ -48,14 +48,15 @@ public class OAuthIdentityServiceProvider extends AbstractManager implements Rea
 
     private User single(OAuthUserQueryImpl oAuthUserQuery) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication instanceof OAuth2AuthenticationToken) {
+        if (authentication instanceof OAuth2AuthenticationToken) {
             if (authentication.getPrincipal() instanceof OidcUser) {
                 Map<String, Object> claims = ((OidcUser)authentication.getPrincipal()).getUserInfo().getClaims();
+                String userId = (String)claims.get("sub");
                 return new OAuthUser(
-                    (String)claims.get("preferred_username"),
-                    (String)claims.get("given_name"),
-                    (String)claims.get("family_name"),
-                    (String)claims.get("email")
+                    userId,
+                    (String)claims.getOrDefault("given_name", userId),
+                    (String)claims.getOrDefault("family_name", userId),
+                    (String)claims.getOrDefault("email", userId)
                 );
             }
         }

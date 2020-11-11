@@ -25,7 +25,7 @@ spring:
         provider:
           my-sso:
             issuer-uri: ${KEYCLOAK_BASE_URL}/realms/${KEYCLOAK_REALM}
-            user-name-attribute: preferred_username
+            user-name-attribute: sub
   jersey:
     # set Camunda's rest path to /rest (i.e. cement the default, a reference of which is hardcoded in SecurityConfiguration)
     application-path: "/rest"
