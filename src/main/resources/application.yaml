@@ -1,0 +1,59 @@
+server:
+  port: 8082
+  max-http-header-size: 16KB
+spring:
+  application:
+    name: sso-process-engine-example
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    open-in-view: true # disable JPA warning
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_BASE_URL}/realms/${KEYCLOAK_REALM}
+      client:
+        registration:
+          my-client-registration:
+            provider: my-sso
+            client-id: ${KEYCLOAK_CLIENT_ID}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/app/{action}/oauth2/code/{registrationId}"
+        provider:
+          my-sso:
+            issuer-uri: ${KEYCLOAK_BASE_URL}/realms/${KEYCLOAK_REALM}
+            user-name-attribute: preferred_username
+  jersey:
+    # set Camunda's rest path to /rest (i.e. cement the default, a reference of which is hardcoded in SecurityConfiguration)
+    application-path: "/rest"
+  groovy:
+    template:
+      check-template-location: false # disable groovy template warning
+
+camunda:
+  bpm:
+    default-serialization-format: application/json
+    history-level: full
+    webapp:
+      index-redirect-enabled: true
+    # Set to / to comply with older configuration
+      application-path: "/"
+    id-generator: strong
+    database:
+      schema-update: true
+    generic-properties.properties:
+      telemetry-reporter-activate: false
+
+application:
+  web-app-role: "${KEYCLOAK_CLIENT_ID}:${WEBAPP_REQUIRED_ROLE}"
+  registration: my-client-registration # see spring.security.oauth2.client.registration
+
+logging:
+  level:
+    # To log REST controllers
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+    # To log web access
+    org.springframework.web: TRACE
