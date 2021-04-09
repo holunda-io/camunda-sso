@@ -62,10 +62,11 @@ import static java.util.stream.Collectors.toList;
 @Component
 public class GrantedAuthoritiesExtractor extends JwtAuthenticationConverter {
 
+    public static final String SPRING_ROLE_PREFIX = "ROLE_";
+
     private static final String ROLE_DECLARATIONS = "roles";
     private static final String REALM_ROLES_CLAIM = "realm_access";
     private static final String CLIENTS_CLAIM = "resource_access";
-    private static final String SPRING_ROLE_PREFIX = "ROLE_";
     private static final String CLIENT_ROLE_SEPARATOR = ":";
 
     @SuppressWarnings("unchecked")
