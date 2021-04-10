@@ -1,5 +1,10 @@
 # Spring Security Configuration for Camunda Process Application (e.g. Camunda with Keycloak)
 
+## Tested on versions
+
+* Camunda BPM: 7.14, 7.15
+* Spring Boot: 2.3.5.RELEASE, 2.3.8.RELEASE, 2.4.2, 2.4.3, 2.4.4
+
 ## Goal
 
 Use default Spring security with OAuth2 and provide authenticated access to Camunda WebApps and
