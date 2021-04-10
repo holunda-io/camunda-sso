@@ -1,4 +1,4 @@
-# Spring Security Configuration for a Process Application
+# Spring Security Configuration for Camunda Process Application (e.g. Camunda with Keycloak)
 
 ## Goal
 
