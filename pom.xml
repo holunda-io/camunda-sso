@@ -15,7 +15,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <spring-boot.version>2.6.1</spring-boot.version>
+    <spring-boot.version>2.6.6</spring-boot.version>
     <camunda.base.version>7.15.0</camunda.base.version>
     <camunda.version>7.15.0-ee</camunda.version>
   </properties>
